@@ -1,9 +1,9 @@
-import semanticRelease from 'semantic-release';
+import { PluginSpec } from 'semantic-release';
 
 export function resolvePluginConfig(
-  plugins: semanticRelease.PluginSpec[],
+  plugins: PluginSpec[],
   pluginName: string,
-): semanticRelease.PluginSpec {
+): PluginSpec {
   const foundConfig = plugins.find((plugin) => (
     Array.isArray(plugin)
       ? plugin[0] === pluginName

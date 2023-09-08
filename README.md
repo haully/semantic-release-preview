@@ -20,7 +20,7 @@ The example below shows how to add a comment to a pull request with the release 
     fetch-depth: 0
 - name: Generate release notes
   id: release-notes-preview
-  uses: guilhermetod/semantic-release-notes-preview@v1.0.0
+  uses: haully/semantic-release-preview@v1.0.0
 - name: Comment release notes preview
   uses: peter-evans/create-or-update-comment@v1
   with:
@@ -34,4 +34,5 @@ The example below shows how to add a comment to a pull request with the release 
 ```
 
 ## License
-This project is released under the [MIT License](https://github.com/guilhermetod/semantic-release-notes-preview/blob/main/LICENSE).
+
+This project is released under the [MIT License](https://github.com/haully/semantic-release-preview/blob/main/LICENSE).

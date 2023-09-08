@@ -1,4 +1,4 @@
-import semanticRelease from 'semantic-release';
+import { PluginSpec } from 'semantic-release';
 
 import { resolvePluginConfig } from '@src/helpers/utils/resolve-plugin-config';
 
@@ -16,7 +16,7 @@ describe('resolvePluginConfig', () => {
 
   it('should return the plugin config within an array when it contains options', () => {
     const dummyConfig = [dummyPluginName, dummyPluginOptions];
-    const plugins = ['unknown-plugin', dummyConfig] as semanticRelease.PluginSpec[];
+    const plugins = ['unknown-plugin', dummyConfig] as PluginSpec[];
 
     const config = resolvePluginConfig(plugins, dummyPluginName);
 
