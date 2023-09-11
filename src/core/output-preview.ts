@@ -1,11 +1,11 @@
 import { execSync } from 'child_process';
 
 import { setOutput } from '@actions/core';
-import semanticRelease from 'semantic-release';
+import semanticRelease, { Result } from 'semantic-release';
 
 import { getBaseConfig } from '@src/helpers/utils/get-base-config';
 
-async function dryRunRelease(): Promise<semanticRelease.Result> {
+async function dryRunRelease(): Promise<Result> {
   execSync(`git checkout ${process.env.GITHUB_HEAD_REF}`);
 
   return semanticRelease({

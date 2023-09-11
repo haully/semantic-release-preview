@@ -1,9 +1,9 @@
 import { cosmiconfig } from 'cosmiconfig';
-import semanticRelease from 'semantic-release';
+import { Options } from 'semantic-release';
 
 import { resolvePluginConfig } from '@src/helpers/utils/resolve-plugin-config';
 
-export async function getBaseConfig(): Promise<semanticRelease.Options> {
+export async function getBaseConfig(): Promise<Options> {
   const result = await cosmiconfig('release').search();
   const config = result?.config ?? {};
   const { branches = [], plugins = [] } = config;
