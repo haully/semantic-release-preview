@@ -1,4 +1,4 @@
-<h1 align="center">Release Notes Preview</h1>
+<h1 align="center">Release Preview</h1>
 <p align="center">Generates and outputs a release notes preview</p>
 
 # Usage
