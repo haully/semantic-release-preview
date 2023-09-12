@@ -23,7 +23,13 @@ jobs:
         run: npm run test:ci
       - name: Build
         run: npm run build
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Release
         run: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
