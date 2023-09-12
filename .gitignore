@@ -1,5 +1,7 @@
 # compiled output
-/tmp/
+/dist
+/tmp
+/out-tsc
 
 # dependencies
 node_modules/
@@ -8,9 +10,9 @@ node_modules/
 debug.log
 npm-debug.log
 
-# System Files
+# system Files
 .DS_Store
 Thumbs.db
 
 # test reports
-/tests/reports/
+/coverage/*
