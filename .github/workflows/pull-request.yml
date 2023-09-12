@@ -1,0 +1,56 @@
+name: Pull request
+
+on: create
+
+jobs:
+  validate:
+    name: Validate pull request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Create sync pull request
+        id: create-sync-pr
+        run: |
+          response=$(gh pr create \
+                        --base $FROM_BRANCH \
+                        --head $TO_BRANCH \
+                        --title "$TITLE" \
+                        --body "$BODY")
+          number = $response.split('/').at(-1)
+          echo "PULL_REQUEST_URL=$response" >> "$GITHUB_OUTPUT"
+          echo "PULL_REQUEST_NUMBER=$number" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          FROM_BRANCH: "main"
+          TO_BRANCH: ${{ github.ref }}
+          TITLE: "sync: main to devel"
+          BODY: "New code has just landed in main, so let's bring devel up to speed!"
+
+      - name: Log results
+        run: echo 'Hi ${{ toJson(steps.create-sync-pr.outputs) }}'
+
+      - name: Enable pull request automerge
+        run: gh pr merge --merge --auto "${{ steps.create-sync-pr.outputs.PULL_REQUEST_URL }}"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Auto approve pull request
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.create-sync-pr.outputs.PULL_REQUEST_NUMBER }}
