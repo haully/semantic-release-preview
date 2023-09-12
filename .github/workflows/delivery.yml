@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-release:
-    name: Validate, build and release
+    name: validate, build and release
     runs-on: ubuntu-latest
 
     steps:
