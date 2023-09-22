@@ -26,22 +26,11 @@ jobs:
       - name: Create sync pull request
         id: create-sync-pr
         run: |
-          gh pr create --base $FROM_BRANCH --head $TO_BRANCH --title "sync: main to devel" --body "New code has just landed in main, so let's bring devel up to speed!"
+          gh pr create --draft --base $FROM_BRANCH --head $TO_BRANCH --title "chore: release preview sample" --body "Release preview sample"
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
           FROM_BRANCH: "main"
           TO_BRANCH: ${{ github.ref }}
 
-      - name: Log results
-        run: echo 'Hi ${{ steps.create-sync-pr.outputs }}'
-
-      - name: Enable pull request automerge
-        run: gh pr merge --merge --auto "${{ steps.create-sync-pr.outputs.PULL_REQUEST_NUMBER }}"
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-
-      - name: Auto approve pull request
-        uses: hmarr/auto-approve-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.create-sync-pr.outputs.PULL_REQUEST_NUMBER }}
+      - name: Release Preview
+        uses: haully/semantic-release-preview@1.0.0
