@@ -33,4 +33,4 @@ jobs:
           TO_BRANCH: ${{ github.ref }}
 
       - name: Release Preview
-        uses: haully/semantic-release-preview@1.0.9
+        uses: haully/semantic-release-preview@1.0.0
